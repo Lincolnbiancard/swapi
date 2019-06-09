@@ -16,17 +16,24 @@ class SwapiController extends Controller
     //Exibir todos dados do retorno da api 
     public function index()
     {
-        $result = $this->swapi;
+        $response_http = $this->swapi;
+        $obj_peoples = json_decode($response_http);
+        $result = $obj_peoples->results;
         
-        return $result;
+        return view('main.list')->with('result', $result);
     }
 
     //Exibir registro unico passando a id depois da / 
     public function show($id)
     {
-        $result = $this->swapi = Curl::to('https://swapi.co/api/people/'. $id)->get();
+        $response_http = $this->swapi = Curl::to('https://swapi.co/api/people/'. $id . '/')->get();
+        $obj_peoples = json_decode($response_http);
         
-        return $result;
+        $result = (object)['results' => 
+            $obj_peoples
+        ];
+        
+        return view('main.list')->with('result', $result);
     }
 
 }

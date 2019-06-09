@@ -12,8 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('index');
 });
 
-Route::resource('swapi', 'SwapiController');
+Route::resource('index', 'SwapiController');
 
